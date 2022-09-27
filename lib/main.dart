@@ -13,7 +13,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<TimeProvider>(create: (_) => TimeProvider())
+        ChangeNotifierProvider<TimeProvider>(create: (_) => TimeProvider()),
       ],
       child: const MyApp(),
     ),

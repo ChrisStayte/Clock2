@@ -8,7 +8,7 @@ class HexClock extends StatelessWidget {
   const HexClock({super.key});
 
   Color _hexToColor(String code) {
-    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+    return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 
   String _getTimeHex(DateTime dateTime) {
@@ -19,7 +19,7 @@ class HexClock extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime time = context.watch<TimeProvider>().time;
     return Hero(
-      tag: 'clock',
+      tag: (HexClock).toString(),
       child: Container(
         padding: EdgeInsets.all(16),
         color: _hexToColor(

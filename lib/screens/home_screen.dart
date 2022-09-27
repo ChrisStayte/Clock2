@@ -1,21 +1,18 @@
+import 'package:clock2/clocks/digital_military_clock.dart';
 import 'package:clock2/clocks/hex_clock.dart';
 
 import 'package:clock2/screens/clock_screen.dart';
+import 'package:clock2/screens/info_screen.dart';
+import 'package:clock2/widgets/animated_gradient_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/time_provider.dart';
-
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  static final List<Widget> _clocks = [HexClock()];
+  static final List<Widget> _clocks = [HexClock(), DigitalMilitaryClock()];
+  final Widget _animatedGradientContainer = AnimatedGradientContainer();
 
   List<Widget> _buildClocks(BuildContext context) {
-    return _clocks
+    return HomeScreen._clocks
         .map(
           (clock) => Container(
             margin: EdgeInsets.all(16),
@@ -47,27 +44,32 @@ class HomeScreen extends StatelessWidget {
     List<Widget> clocks = _buildClocks(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Clock2',
-          style: TextStyle(
-            color: Colors.black,
+          title: Hero(
+              tag: 'title',
+              child: Text(
+                'Clock2',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w300,
+                ),
+              )),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(Icons.info_outline),
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) =>
+                      InfoScreen(background: _animatedGradientContainer),
+                ),
+              ),
+            },
           ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0XFF7EB0C9), Color(0XFFDB7343)],
-            ),
-            color: Colors.white,
-          ),
-        ),
-      ),
+          flexibleSpace: _animatedGradientContainer),
       body: SafeArea(
-        bottom: false,
         child: GridView.builder(
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

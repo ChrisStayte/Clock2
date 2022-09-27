@@ -8,7 +8,7 @@ class ClockScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pop(context),
+      onDoubleTap: () => Navigator.pop(context),
       child: Scaffold(
         body: clock,
       ),
