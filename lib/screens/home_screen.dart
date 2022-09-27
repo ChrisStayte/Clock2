@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+                    fullscreenDialog: true,
                     builder: (context) => ClockScreen(
                       clock: clock,
                     ),
@@ -46,17 +47,33 @@ class HomeScreen extends StatelessWidget {
     List<Widget> clocks = _buildClocks(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Clock2'),
+        title: Text(
+          'Clock2',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         elevation: 0,
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0XFF7EB0C9), Color(0XFFDB7343)],
+            ),
+            color: Colors.white,
+          ),
+        ),
       ),
       body: SafeArea(
+        bottom: false,
         child: GridView.builder(
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            maxCrossAxisExtent: 260,
+            maxCrossAxisExtent: 250,
           ),
           itemCount: clocks.length,
           itemBuilder: (_, index) => clocks[index],
