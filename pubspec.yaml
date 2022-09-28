@@ -20,6 +20,7 @@ dependencies:
   package_info_plus: ^1.4.3+1
   in_app_review: ^2.0.4
   url_launcher: ^6.1.5
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:
