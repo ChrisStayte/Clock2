@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clock2/clocks/hex_clock.dart';
 import 'package:clock2/providers/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +42,7 @@ class _DigitalMilitaryClockState extends State<DigitalMilitaryClock> {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 250) {
         return GestureDetector(
-          onTap: () => setState(() => _editing = !_editing),
+          onTap: () => setState(() => _editing = _editing),
           child: Stack(
             children: [
               hero,
