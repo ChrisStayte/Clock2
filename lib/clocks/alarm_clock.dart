@@ -1,29 +1,76 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clock2/providers/time_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AlarmClock extends StatelessWidget {
-  const AlarmClock({super.key});
+  AlarmClock({super.key});
+
+  final TextStyle _textStyle = TextStyle(
+    fontFamily: 'AlarmClock',
+    color: Colors.red,
+    fontSize: 200,
+  );
+
+  String _buildClockString(DateTime time) {
+    // Using Unicode character (U+2008) for the colon. It's considered a punctuation space.
+    String middle = time.second.isEven ? ' ' : ':';
+    String hour = DateFormat('hh').format(time);
+    String minute = DateFormat('mm').format(time);
+    return '$hour$middle$minute';
+  }
 
   @override
   Widget build(BuildContext context) {
+    DateTime time = context.watch<TimeProvider>().time;
+
     return Hero(
       tag: (AlarmClock).toString(),
-      child: Container(
-        color: Colors.black,
-        child: Center(
-            child: Stack(
-          children: [
-            Center(
-              child: Text(
-                '88:88',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontFamily: 'AlarmClock',
-                  fontSize: 28,
-                ),
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          color: Colors.black,
+          child: SafeArea(
+            bottom: false,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Stack(
+                      children: [
+                        AutoSizeText(
+                          '88:88',
+                          maxLines: 1,
+                          style: _textStyle.copyWith(
+                            color: _textStyle.color?.withOpacity(0.2),
+                          ),
+                        ),
+                        AutoSizeText(
+                          _buildClockString(time),
+                          maxLines: 1,
+                          style: _textStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: AutoSizeText(
+                      DateFormat('a').format(time).toUpperCase(),
+                      maxLines: 1,
+                      style: _textStyle,
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
-        )),
+            ),
+          ),
+        ),
       ),
     );
   }

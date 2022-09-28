@@ -21,6 +21,7 @@ class _AnimatedGradientContainerState extends State<AnimatedGradientContainer> {
     Colors.lightBlue,
     Colors.orange,
   ]..shuffle();
+
   final List<Alignment> _alignmentList = const [
     Alignment.topLeft,
     Alignment.topCenter,
@@ -29,6 +30,7 @@ class _AnimatedGradientContainerState extends State<AnimatedGradientContainer> {
     Alignment.bottomRight,
     Alignment.bottomCenter,
     Alignment.bottomLeft,
+    Alignment.centerLeft,
   ];
 
   int _index = 0;

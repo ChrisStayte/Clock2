@@ -1,4 +1,5 @@
 import 'package:clock2/clocks/alarm_clock.dart';
+import 'package:clock2/clocks/analog_clock/analog_clock.dart';
 import 'package:clock2/clocks/digital_military_clock.dart';
 import 'package:clock2/clocks/hex_clock.dart';
 
@@ -10,11 +11,11 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static final List<Widget> _clocks = [
-    HexClock(),
-    DigitalMilitaryClock(),
     AlarmClock(),
+    AnalogClock(),
+    DigitalMilitaryClock(),
+    HexClock(),
   ];
-  final Widget _animatedGradientContainer = AnimatedGradientContainer();
 
   List<Widget> _buildClocks(BuildContext context) {
     return HomeScreen._clocks
@@ -71,20 +72,19 @@ class HomeScreen extends StatelessWidget {
               ),
             },
           ),
-          flexibleSpace: _animatedGradientContainer),
+          flexibleSpace: AnimatedGradientContainer()),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-          child: GridView.builder(
-            physics: BouncingScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              maxCrossAxisExtent: 250,
-            ),
-            itemCount: clocks.length,
-            itemBuilder: (_, index) => clocks[index],
+        bottom: false,
+        child: GridView.builder(
+          padding: EdgeInsets.all(16),
+          physics: BouncingScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            maxCrossAxisExtent: 250,
           ),
+          itemCount: clocks.length,
+          itemBuilder: (_, index) => clocks[index],
         ),
       ),
     );
