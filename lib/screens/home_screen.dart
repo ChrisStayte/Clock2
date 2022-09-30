@@ -3,6 +3,7 @@ import 'package:clock2/clocks/analog_clock/analog_clock.dart';
 
 import 'package:clock2/clocks/digital_clock.dart';
 import 'package:clock2/clocks/hex_clock.dart';
+import 'package:clock2/clocks/marque_clock.dart/marque_clock.dart';
 
 import 'package:clock2/screens/clock_screen.dart';
 import 'package:clock2/screens/info_screen.dart';
@@ -12,6 +13,9 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static final List<Widget> _clocks = [
+    MarqueClock(
+      showNumbers: false,
+    ),
     AlarmClock(),
     AnalogClock(),
     DigitalClock(),
@@ -77,15 +81,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Hero(
-              tag: 'title',
-              child: Text(
-                'Clock2',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w300,
-                ),
-              )),
-          elevation: 0,
+            tag: 'title',
+            child: Text(
+              'Clock2',
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
           backgroundColor: Colors.transparent,
           leading: IconButton(
             icon: Icon(Icons.info_outline),

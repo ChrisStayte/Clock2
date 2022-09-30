@@ -48,7 +48,7 @@ class AlarmClock extends StatelessWidget {
                           '88:88',
                           maxLines: 1,
                           style: _textStyle.copyWith(
-                            color: _textStyle.color?.withOpacity(0.2),
+                            color: _textStyle.color?.withOpacity(0.1),
                           ),
                         ),
                         AutoSizeText(

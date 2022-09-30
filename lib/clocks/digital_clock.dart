@@ -63,7 +63,7 @@ class _DigitalClockState extends State<DigitalClock> {
                   child: IconButton(
                     color: Colors.white,
                     icon: Icon(Icons.format_paint_outlined),
-                    onPressed: () => print('hello'),
+                    onPressed: () => {},
                   ),
                 ),
               )

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ClockDialPainter extends CustomPainter {
   late final clockText;
   final bool showTicks;
+  final bool showNumbers;
 
   final hourTickMarkLength = 10.0;
   final minuteTickMarkLength = 5.0;
@@ -32,7 +33,9 @@ class ClockDialPainter extends CustomPainter {
   ];
 
   ClockDialPainter(
-      {this.clockText = ClockText.arabic, this.showTicks = false}) {
+      {this.clockText = ClockText.arabic,
+      this.showTicks = false,
+      this.showNumbers = true}) {
     textStyle = const TextStyle(
       color: Colors.black,
       fontFamily: 'Times New Roman',
@@ -61,7 +64,6 @@ class ClockDialPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final fontSizeBasedUponWidth = size.width / 8;
-
     textStyle = textStyle.copyWith(fontSize: calculateFontSize(size));
 
     var tickMarkLength;
@@ -82,17 +84,21 @@ class ClockDialPainter extends CustomPainter {
         canvas.save();
         var spaceFromSize = showTicks ? 18 + tickMarkLength : 18;
         canvas.translate(0.0, -radius + spaceFromSize);
-        textPainter.text = new TextSpan(
-          text: clockText == ClockText.roman
-              ? '${romanNumeralList[i ~/ 5]}'
-              : '${i == 0 ? 12 : i ~/ 5}',
-          style: textStyle,
-        );
 
-        canvas.rotate(-angle * i);
-        textPainter.layout();
-        textPainter.paint(canvas,
-            Offset(-(textPainter.width / 2), -(textPainter.height / 2)));
+        if (showNumbers) {
+          textPainter.text = TextSpan(
+            text: clockText == ClockText.roman
+                ? '${romanNumeralList[i ~/ 5]}'
+                : '${i == 0 ? 12 : i ~/ 5}',
+            style: textStyle,
+          );
+
+          canvas.rotate(-angle * i);
+          textPainter.layout();
+          textPainter.paint(canvas,
+              Offset(-(textPainter.width / 2), -(textPainter.height / 2)));
+        }
+
         canvas.restore();
       }
       canvas.rotate(angle);
