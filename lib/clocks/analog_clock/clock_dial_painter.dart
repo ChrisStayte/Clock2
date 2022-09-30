@@ -14,7 +14,7 @@ class ClockDialPainter extends CustomPainter {
 
   final Paint tickPaint = Paint()..color = Colors.black;
   late final TextPainter textPainter;
-  late final TextStyle textStyle;
+  late TextStyle textStyle;
 
   final romanNumeralList = [
     'XII',
@@ -46,8 +46,24 @@ class ClockDialPainter extends CustomPainter {
     );
   }
 
+  // a function that takes the screen size and calculates a font size between 12 and 25
+  double calculateFontSize(Size size) {
+    final fontSize = size.width / 10;
+    if (fontSize > 24) {
+      return 24;
+    } else if (fontSize < 12) {
+      return 12;
+    } else {
+      return fontSize;
+    }
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
+    final fontSizeBasedUponWidth = size.width / 8;
+    print(fontSizeBasedUponWidth);
+    textStyle = textStyle.copyWith(fontSize: calculateFontSize(size));
+
     var tickMarkLength;
     final angle = 2 * pi / 60;
     final radius = size.width / 2;
@@ -64,7 +80,7 @@ class ClockDialPainter extends CustomPainter {
 
       if (i % 5 == 0) {
         canvas.save();
-        var spaceFromSize = showTicks ? 12 + tickMarkLength : 12;
+        var spaceFromSize = showTicks ? 18 + tickMarkLength : 18;
         canvas.translate(0.0, -radius + spaceFromSize);
         textPainter.text = new TextSpan(
           text: clockText == ClockText.roman

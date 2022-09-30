@@ -1,7 +1,10 @@
 import 'package:clock2/clocks/analog_clock/clock_dial_painter.dart';
+import 'package:clock2/clocks/analog_clock/hour_hand_painter.dart';
+import 'package:clock2/clocks/analog_clock/minute_hand_painter.dart';
+import 'package:clock2/clocks/analog_clock/second_hand_painter.dart';
+import 'package:clock2/providers/time_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class AnalogClock extends StatelessWidget {
   const AnalogClock({super.key});
@@ -39,9 +42,52 @@ class AnalogClock extends StatelessWidget {
                             Center(
                               child: Container(
                                 width: constraints.biggest.shortestSide / 60,
-                                decoration: new BoxDecoration(
+                                decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Color(0Xff1D1C1E),
+                                ),
+                              ),
+                            ),
+                            AspectRatio(
+                              aspectRatio: 1.0,
+                              child: Container(
+                                width: double.infinity,
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    CustomPaint(
+                                      painter: HourHandPainter(
+                                        hours: context
+                                            .watch<TimeProvider>()
+                                            .time
+                                            .hour,
+                                        minutes: context
+                                            .watch<TimeProvider>()
+                                            .time
+                                            .minute,
+                                      ),
+                                    ),
+                                    CustomPaint(
+                                      painter: MinuteHandPainter(
+                                        minutes: context
+                                            .watch<TimeProvider>()
+                                            .time
+                                            .minute,
+                                        seconds: context
+                                            .watch<TimeProvider>()
+                                            .time
+                                            .second,
+                                      ),
+                                    ),
+                                    CustomPaint(
+                                      painter: SecondHandPainter(
+                                        seconds: context
+                                            .watch<TimeProvider>()
+                                            .time
+                                            .second,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
