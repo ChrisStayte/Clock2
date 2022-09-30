@@ -10,7 +10,7 @@ class HourHandPainter extends CustomPainter {
   HourHandPainter({required this.hours, required this.minutes}) {
     hourHandPaint.color = Colors.black;
     hourHandPaint.style = PaintingStyle.fill;
-    hourHandPaint.strokeWidth = 4.0;
+    hourHandPaint.strokeWidth = 3.0;
   }
 
   @override

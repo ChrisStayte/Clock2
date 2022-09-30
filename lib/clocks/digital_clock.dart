@@ -1,16 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clock2/providers/time_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class DigitalMilitaryClock extends StatefulWidget {
-  const DigitalMilitaryClock({super.key});
+class DigitalClock extends StatefulWidget {
+  const DigitalClock({super.key, this.dateFormat, this.backgroundColor});
+
+  final String? dateFormat;
+  final Color? backgroundColor;
 
   @override
-  State<DigitalMilitaryClock> createState() => _DigitalMilitaryClockState();
+  State<DigitalClock> createState() => _DigitalClockState();
 }
 
-class _DigitalMilitaryClockState extends State<DigitalMilitaryClock> {
+class _DigitalClockState extends State<DigitalClock> {
   bool _editing = false;
 
   @override
@@ -18,20 +22,25 @@ class _DigitalMilitaryClockState extends State<DigitalMilitaryClock> {
     DateTime time = context.watch<TimeProvider>().time;
 
     var hero = Hero(
-      tag: (DigitalMilitaryClock).toString(),
+      tag: widget.dateFormat != null
+          ? '${(DigitalClock).toString()}_${widget.dateFormat}'
+          : (DigitalClock).toString(),
       child: Container(
         padding: EdgeInsets.all(16),
-        color: Colors.black,
-        child: Center(
-          child: Material(
-            color: Colors.transparent,
-            child: AutoSizeText(
-              '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}',
-              maxLines: 1,
-              style: TextStyle(
-                decoration: TextDecoration.none,
-                color: Colors.white,
-                fontSize: 80,
+        color: widget.backgroundColor ?? Colors.black,
+        child: SafeArea(
+          bottom: false,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: AutoSizeText(
+                DateFormat(widget.dateFormat ?? 'hh:mm').format(time),
+                maxLines: 1,
+                style: TextStyle(
+                  decoration: TextDecoration.none,
+                  color: Colors.white,
+                  fontSize: 200,
+                ),
               ),
             ),
           ),

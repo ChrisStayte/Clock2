@@ -46,7 +46,7 @@ class ClockDialPainter extends CustomPainter {
     );
   }
 
-  // a function that takes the screen size and calculates a font size between 12 and 25
+  // a function that takes the screen size and calculates a font size between 12 and 24
   double calculateFontSize(Size size) {
     final fontSize = size.width / 10;
     if (fontSize > 24) {

@@ -5,13 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class AlarmClock extends StatelessWidget {
-  AlarmClock({super.key});
+  AlarmClock({super.key, this.tag, this.color = Colors.red})
+      : _textStyle =
+            TextStyle(color: color, fontSize: 300, fontFamily: 'AlarmClock');
 
-  final TextStyle _textStyle = TextStyle(
-    fontFamily: 'AlarmClock',
-    color: Colors.red,
-    fontSize: 200,
-  );
+  final String? tag;
+  final Color color;
+  final TextStyle _textStyle;
 
   String _buildClockString(DateTime time) {
     // Using Unicode character (U+2008) for the colon. It's considered a punctuation space.
@@ -26,7 +26,7 @@ class AlarmClock extends StatelessWidget {
     DateTime time = context.watch<TimeProvider>().time;
 
     return Hero(
-      tag: (AlarmClock).toString(),
+      tag: tag ?? (AlarmClock).toString(),
       child: Material(
         color: Colors.transparent,
         child: Container(

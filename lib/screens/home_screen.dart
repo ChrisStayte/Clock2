@@ -1,6 +1,7 @@
 import 'package:clock2/clocks/alarm_clock.dart';
 import 'package:clock2/clocks/analog_clock/analog_clock.dart';
-import 'package:clock2/clocks/digital_military_clock.dart';
+
+import 'package:clock2/clocks/digital_clock.dart';
 import 'package:clock2/clocks/hex_clock.dart';
 
 import 'package:clock2/screens/clock_screen.dart';
@@ -13,8 +14,34 @@ class HomeScreen extends StatelessWidget {
   static final List<Widget> _clocks = [
     AlarmClock(),
     AnalogClock(),
-    DigitalMilitaryClock(),
+    DigitalClock(),
+    AlarmClock(
+      tag: 'alarm_green',
+      color: Colors.green,
+    ),
+    AnalogClock(
+      tag: 'analog_basic_with_ticks',
+      showTicks: true,
+    ),
     HexClock(),
+    AnalogClock(
+      tag: 'analog_basic_with_ticks_and_roman',
+      showTicks: true,
+      showRomanNumerials: true,
+    ),
+    DigitalClock(
+      dateFormat: 'H:mm:ss',
+    ),
+    DigitalClock(
+      dateFormat: 'hh:mm:ss',
+    ),
+    AnalogClock(
+      tag: 'analog_basic_with_roman',
+      showRomanNumerials: true,
+    ),
+    DigitalClock(
+      dateFormat: 'H:mm',
+    ),
   ];
 
   List<Widget> _buildClocks(BuildContext context) {

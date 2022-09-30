@@ -7,12 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AnalogClock extends StatelessWidget {
-  const AnalogClock({super.key});
+  const AnalogClock({
+    super.key,
+    this.tag,
+    this.showTicks = false,
+    this.showRomanNumerials = false,
+  });
+
+  final String? tag;
+  final bool showTicks;
+  final bool showRomanNumerials;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: (AnalogClock).toString(),
+      tag: tag ?? (AnalogClock).toString(),
       child: Container(
         padding: EdgeInsets.all(8),
         color: Color(0Xff1D1C1E),
@@ -36,12 +45,16 @@ class AnalogClock extends StatelessWidget {
                               width: double.infinity,
                               height: double.infinity,
                               child: CustomPaint(
-                                painter: ClockDialPainter(),
+                                painter: ClockDialPainter(
+                                    showTicks: showTicks,
+                                    clockText: showRomanNumerials
+                                        ? ClockText.roman
+                                        : ClockText.arabic),
                               ),
                             ),
                             Center(
                               child: Container(
-                                width: constraints.biggest.shortestSide / 60,
+                                width: constraints.biggest.shortestSide / 55,
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Color(0Xff1D1C1E),

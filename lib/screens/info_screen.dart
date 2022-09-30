@@ -264,7 +264,7 @@ class InfoScreen extends StatelessWidget {
                     ),
                   ),
                   FrostedBox(
-                    onTap: () => print("test"),
+                    onTap: () => {},
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -310,7 +310,7 @@ class InfoScreen extends StatelessWidget {
                     ),
                   ),
                   FrostedBox(
-                    onTap: () => print("test"),
+                    onTap: () => {},
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
